@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Online Dine-In System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-repeat: no repeat;
+            background-size: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            text-align: left;
+            font-size: large;
+            font-style: italic;
+            width: 600px;
+            margin: 50px auto;
+            background-color: rgba(255, 254, 253, 0.627);
+            padding: 100px;
+            border-radius: 50px;
+            box-shadow: 0px 0px 10px rgba(206, 35, 35, 0.1);
+        }
+        h1 { 
+            text-align: center;
+            font-size: xx-large;
+            font-family:  sans-serif;
+            color: rgb(0, 0, 0);
+        }
+        .animate-charcter
+{
+   text-transform: uppercase;
+  background-image: linear-gradient(
+    -225deg,
+    #231557 0%,
+    #44107a 29%,
+    #ff1361 67%,
+    #17ee14 80%,
+    #fff800 70%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 5s linear infinite;
+  display: inline-block;
+      font-size: 50px;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 100% center;
+  }
+}
+        label {
+            display: block;
+            margin-top: 10px;
+            font-family:  Tahoma, sans-serif;
+            color: rgb(0, 0, 0);
+            font-size: x-large;
+        }
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 15px;
+            margin-top: 1px;
+            border-radius: 100px;
+            border: 1px solid rgb(0, 0, 0);
+            font-style: italic;
+            font-size: large;
+            background-color: rgba(255, 254, 253, 0.627);
+        }
+        input[type="submit"] {
+            background-color: rgba(255, 254, 253, 0.627);
+             color: rgb(0, 0, 0);
+            padding: 15px;
+            border: 1px solid black;
+            border-radius: 100px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-style: italic;
+            font-size: large;
+            text-align: center;
+        }
+        #result {
+            margin-top: 20px;
+            border: 1px solid rgb(0, 0, 0);
+            padding: 10px;
+            background-color: rgba(255, 254, 253, 0.627);
+            color: #333;
+        }
+        .order-item {
+            font-style: italic;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: large;
+            
+        }
+        input[type="button"],
+        button {  background-color: rgba(255, 254, 253, 0.627);
+            color: rgb(0, 0, 0);
+            padding: 15px;
+            border: 1px solid black;
+            border-radius: 100px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-style: italic;
+            font-size: large;
+            text-align: center;
+            
+        }
+
+        
+    </style>
+</head>
+<body background="images/xxx.jpg">
+    <div class="container">
+        <h1 class="animate-charcter">Online Dine-In System</h1>
+        <form id="orderForm">
+         
+        
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+            
+            <label for="tableNumber">Table Number:</label>
+            <input type="number" id="tableNumber" required>
+            
+            <div id="orderItems">
+                <div class="order-item">
+                    <label for="menu">Menu:</label>
+                    <select class="menu" required>
+                        <option value="">Select an item</option>
+                        <optgroup label="Vegetarian">
+                            <option value="MasalDosa">Masal Dosa</option>
+                            <option value="IdliVada">Idli Vada</option>
+                            <option value="Pongal">Pongal</option>
+                            <option value="Poori">Poori</option>
+                            <option value="Parota">Parota</option>
+                            <option value="Ricebhath">Ricebhath</option>
+                            <option value="FullMeals">Full Meals</option>
+                        </optgroup>
+                        <optgroup label="Non Vegetarian">
+                            <option value="ChickenBiriyani">Chicken Biriyani</option>
+                            <option value="Chicken65">Chicken 65</option>
+                            <option value="ChickenTikka">Chicken Tikka</option>
+                            <option value="ChilliChicken">Chilli Chicken</option>
+                            <option value="ButterChicken">Butter Chicken</option>
+                            <option value="ChickenKabab">Chicken Kabab</option>
+                            <option value="ChickenRoll">Chicken Roll</option>
+                            <option value="MuttonBiriyani">Mutton Biriyani</option>
+                            <option value="MuttonKhaima">Mutton Khaima</option>
+                            <option value="MuttonLegsSoup">Mutton Legs Soup</option>
+                            <option value="BotiChops">Boti Chops</option>
+                        </optgroup>
+                    </select>
+                    
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" class="quantity" required>
+                </div>
+            </div>
+            
+            <input type="button" id="addItem" value="Add Item">
+            
+            <input type="submit" value="Place Order">
+        </form>
+        
+        <div id="result"></div>
+    </div>
+    
+<script>
+    
+document.getElementById("addItem").addEventListener("click", function(event) {
+    event.preventDefault(); 
+    
+    var orderItemsDiv = document.getElementById("orderItems");
+    
+    var orderItemDiv = document.createElement("div");
+    orderItemDiv.className = "order-item";
+    
+    var menuLabel = document.createElement("label");
+    menuLabel.textContent = "Menu:";
+    orderItemDiv.appendChild(menuLabel);
+    
+    var menuSelect = document.createElement("select");
+    menuSelect.className = "menu";
+    menuSelect.required = true;
+    
+    var defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.textContent = "Select an item";
+    menuSelect.appendChild(defaultOption);
+    
+    var vegetarianOptGroup = document.createElement("optgroup");
+    vegetarianOptGroup.label = "Vegetarian";
+    
+    var vegetarianItems = [
+        { name: "MasalDosa", label: "Masal Dosa" },
+        { name: "IdliVada", label: "Idli Vada" },
+        { name: "Pongal", label: "Pongal" },
+        { name: "Poori", label: "Poori" },
+        { name: "Parota", label: "Parota" },
+        { name: "Ricebhath", label: "Ricebhath" },
+        { name: "FullMeals", label: "Full Meals" }
+    ];
+    
+    vegetarianItems.forEach(function(item) {
+        var option = document.createElement("option");
+        option.value = item.name;
+        option.textContent = item.label;
+        vegetarianOptGroup.appendChild(option);
+    });
+    
+    menuSelect.appendChild(vegetarianOptGroup);
+    
+    var nonVegetarianOptGroup = document.createElement("optgroup");
+    nonVegetarianOptGroup.label = "Non Vegetarian";
+    
+    var nonVegetarianItems = [
+        { name: "ChickenBiriyani", label: "Chicken Biriyani" },
+        { name: "Chicken65", label: "Chicken 65" },
+        { name: "ChickenTikka", label: "Chicken Tikka" },
+        { name: "ChilliChicken", label: "Chilli Chicken" },
+        { name: "ButterChicken", label: "Butter Chicken" },
+        { name: "ChickenKabab", label: "Chicken Kabab" },
+        { name: "ChickenRoll", label: "Chicken Roll" },
+        { name: "MuttonBiriyani", label: "Mutton Biriyani" },
+        { name: "MuttonKhaima", label: "Mutton Khaima" },
+        { name: "MuttonLegsSoup", label: "Mutton Legs Soup" },
+        { name: "BotiChops", label: "Boti Chops" }
+    ];
+    
+    nonVegetarianItems.forEach(function(item) {
+        var option = document.createElement("option");
+        option.value = item.name;
+        option.textContent = item.label;
+        nonVegetarianOptGroup.appendChild(option);
+    });
+    
+    menuSelect.appendChild(nonVegetarianOptGroup);
+    
+    orderItemDiv.appendChild(menuSelect);
+    
+    var quantityLabel = document.createElement("label");
+    quantityLabel.textContent = "Quantity:";
+    orderItemDiv.appendChild(quantityLabel);
+    
+    var quantityInput = document.createElement("input");
+    quantityInput.type = "number";
+    quantityInput.className = "quantity";
+    quantityInput.required = true;
+    orderItemDiv.appendChild(quantityInput);
+    
+    orderItemsDiv.appendChild(orderItemDiv);
+});
+
+document.getElementById("orderForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    // Confirm order
+    if (confirm("Are you sure you want to place this order?")) {
+        // Order details
+        var name = document.getElementById("name").value;
+        var tableNumber = document.getElementById("tableNumber").value;
+        
+        var orderItems = document.getElementsByClassName("order-item");
+        var orderSummary = "Order Summary:\n";
+        
+        for (var i = 0; i < orderItems.length; i++) {
+            var menu = orderItems[i].getElementsByClassName("menu")[0].value;
+            var quantity = orderItems[i].getElementsByClassName("quantity")[0].value;
+            
+            orderSummary += "Item: " + menu + ", Quantity: " + quantity + "\n";
+        }
+        
+        // Print order summary
+        var summary = "<h2>Order Summary</h2>";
+        summary += "<p>Name: " + name + "</p>";
+        summary += "<p>Table Number: " + tableNumber + "</p>";
+        summary += "<h3>Items:</h3>";
+        
+        for (var i = 0; i < orderItems.length; i++) {
+            var menu = orderItems[i].querySelector(".menu").value;
+            var quantity = orderItems[i].querySelector(".quantity").value;
+            
+            summary += "<p>" + menu + " - Quantity: " + quantity + "</p>";
+        }
+        
+        // Display order summary
+        var resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = summary;
+    }
+});
+    </script>
+</body>
+</html>
